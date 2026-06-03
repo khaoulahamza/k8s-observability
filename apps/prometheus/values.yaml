@@ -12,8 +12,23 @@ prometheus:
             requests:
               storage: 20Gi
 
-nodeExporter:
-  enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - prometheus.192.168.1.100.nip.io
+    paths:
+      - /
 
 alertmanager:
+  enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - alertmanager.192.168.1.100.nip.io
+    paths:
+      - /
+
+nodeExporter:
   enabled: true

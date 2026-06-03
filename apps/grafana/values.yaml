@@ -16,6 +16,17 @@ datasources:
         type: loki
         url: http://loki.observability.svc:3100
 
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: default
+        orgId: 1
+        folder: ''
+        type: file
+        options:
+          path: /var/lib/grafana/dashboards/default
+
 dashboards:
   default:
     node-exporter:
@@ -27,13 +38,10 @@ dashboards:
       revision: 1
       datasource: Prometheus
 
-dashboardProviders:
-  dashboardproviders.yaml:
-    apiVersion: 1
-    providers:
-      - name: default
-        orgId: 1
-        folder: ''
-        type: file
-        options:
-          path: /var/lib/grafana/dashboards/default
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+    - grafana.192.168.1.100.nip.io
+  paths:
+    - /
