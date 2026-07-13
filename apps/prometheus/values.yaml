@@ -12,7 +12,7 @@ prometheus:
             requests:
               storage: 20Gi
     
-    # ✅ AJOUTER CES DEUX LIGNES CRUCIALES
+    # ✅ AUTO-DISCOVERY DES MÉTRIQUES CLUSTER
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
 
