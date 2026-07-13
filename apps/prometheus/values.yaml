@@ -1,5 +1,5 @@
 grafana:
-  enabled: false  # On utilise le chart Grafana séparé
+  enabled: false
 
 prometheus:
   prometheusSpec:
@@ -11,13 +11,18 @@ prometheus:
           resources:
             requests:
               storage: 20Gi
+    
+    # ✅ AJOUTER CES DEUX LIGNES CRUCIALES
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+
   ingress:
     enabled: true
     ingressClassName: nginx
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: /
     hosts:
-      - prometheus.staging.local  # ✅ MetalLB + .local
+      - prometheus.staging.local
     paths:
       - /
     pathType: Prefix
@@ -30,7 +35,7 @@ alertmanager:
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: /
     hosts:
-      - alertmanager.staging.local  # ✅ MetalLB + .local
+      - alertmanager.staging.local
     paths:
       - /
     pathType: Prefix
