@@ -10,11 +10,11 @@ datasources:
     datasources:
       - name: Prometheus
         type: prometheus
-        url: http://kube-prometheus-stack-prometheus.observability.svc:9090
+        url: http://prometheus-kube-prometheus-prometheus.observability.svc:9090
         isDefault: true
       - name: Loki
         type: loki
-        url: http://loki.observability.svc:3100
+        url: http://loki-gateway.observability.svc:80  # ✅ Corrigé: pointe vers le gateway
 
 dashboardProviders:
   dashboardproviders.yaml:
@@ -41,7 +41,10 @@ dashboards:
 ingress:
   enabled: true
   ingressClassName: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
   hosts:
-    - grafana.192.168.1.100.nip.io
-  paths:
-    - /
+    - host: grafana.staging.local  
+      paths:
+        - path: /
+          pathType: Prefix
