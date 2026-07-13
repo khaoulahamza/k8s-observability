@@ -28,14 +28,14 @@ gateway:
     ingressClassName: nginx
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: /
-      nginx.ingress.kubernetes.io/proxy-buffering: "off"  # ✅ Important pour les logs streamés
+      nginx.ingress.kubernetes.io/proxy-buffering: "off"
     hosts:
-      - host: loki.staging.local  # ✅ MetalLB + .local
+      - host: loki.staging.local
         paths:
           - path: /
             pathType: Prefix
 
-# ✅ AJOUT CRUCIAL : Promtail pour collecter les logs du cluster
+# ✅ PROMTAIL ACTIVÉ POUR COLLECTER LES LOGS
 promtail:
   enabled: true
   config:
