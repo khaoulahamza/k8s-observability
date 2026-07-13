@@ -1,9 +1,10 @@
-loki:
-  commonConfig:
-    replication_factor: 1
-  storage:
-    type: filesystem
-  auth_enabled: false
+commonConfig:
+  replication_factor: 1
+
+storage:
+  type: filesystem
+
+auth_enabled: false
 
 singleBinary:
   replicas: 1
@@ -25,8 +26,11 @@ gateway:
   ingress:
     enabled: true
     ingressClassName: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /
+      nginx.ingress.kubernetes.io/proxy-buffering: "off"  # ✅ Important pour les logs streamés
     hosts:
-      - host: loki.192.168.1.100.nip.io
+      - host: loki.staging.local  # ✅ MetalLB + .local
         paths:
           - path: /
             pathType: Prefix
